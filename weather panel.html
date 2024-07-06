@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weather Update Panel</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .town {
+        margin-bottom: 20px;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        background-color: #f9f9f9;
+    }
+    .town-name {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    .weather-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .weather-info img {
+        width: 60px;
+        height: 60px;
+        margin-right: 10px;
+    }
+    .temperature {
+        font-size: 28px;
+        font-weight: bold;
+    }
+    .delete-button {
+        background-color: #ff6347;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .delete-button:hover {
+        background-color: #e74c3c;
+    }
+    .add-town {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .add-town input[type="text"] {
+        padding: 8px;
+        width: 60%;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-right: 10px;
+    }
+    .add-town button {
+        padding: 8px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .add-town button:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Weather Update Panel</h1>
+
+    <div id="townList">
+        <div class="town">
+            <div class="town-name">New York</div>
+            <div class="weather-info">
+                <img src="https://cdn2.iconfinder.com/data/icons/basic-icons-5/64/WEATHER-1024.png" alt="Weather Icon">
+                <span class="temperature">28°C</span>
+                <span>Sunny</span>
+                <button class="delete-button" onclick="deleteTown(this)">Delete</button>
+            </div>
+        </div>
+        <div class="town">
+            <div class="town-name">London</div>
+            <div class="weather-info">
+                <img src="https://static.vecteezy.com/system/resources/previews/000/442/967/original/cloudy-vector-icon.jpg" alt="Weather Icon">
+                <span class="temperature">18°C</span>
+                <span>Cloudy</span>
+                <button class="delete-button" onclick="deleteTown(this)">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="add-town">
+        <input type="text" id="newTown" placeholder="Enter town name">
+        <button onclick="addTown()">Add Town</button>
+    </div>
+</div>
+
+<script>
+    function addTown() {
+        var townName = document.getElementById('newTown').value;
+        if (townName.trim() === '') {
+            alert('Please enter a town name.');
+            return;
+        }
+
+        var townList = document.getElementById('townList');
+
+        var townDiv = document.createElement('div');
+        townDiv.classList.add('town');
+
+        var townNameDiv = document.createElement('div');
+        townNameDiv.classList.add('town-name');
+        townNameDiv.textContent = townName;
+
+        var weatherInfoDiv = document.createElement('div');
+        weatherInfoDiv.classList.add('weather-info');
+        weatherInfoDiv.innerHTML = `
+            <img src="https://cdn2.iconfinder.com/data/icons/basic-icons-5/64/WEATHER-1024.png" alt="Weather Icon">
+            <span class="temperature">25°C</span>
+            <span>Sunny</span>
+            <button class="delete-button" onclick="deleteTown(this)">Delete</button>
+        `;
+
+        townDiv.appendChild(townNameDiv);
+        townDiv.appendChild(weatherInfoDiv);
+
+        townList.appendChild(townDiv);
+        document.getElementById('newTown').value = '';
+    }
+
+    function deleteTown(button) {
+        var townDiv = button.parentNode.parentNode;
+        townDiv.parentNode.removeChild(townDiv);
+    }
+</script>
+
+</body>
+</html>
